@@ -1,0 +1,90 @@
+
+
+<div class="main-div">
+  <div class="add-data">
+      <button *ngIf="!isAdd" mat-raised-button color="primary" type="button" (click)="showAddPost()">Add Post</button>
+      <mat-card *ngIf="isAdd">
+          <mat-card-header>
+            <mat-card-title>Add post</mat-card-title>
+          </mat-card-header>
+    
+          <form class="example-form">
+
+            <div>
+              <mat-form-field class="example-full-width">
+                  <input matInput placeholder="User ID" value="" type="number" [(ngModel)]="userId" name="userId" >
+                </mat-form-field>
+              </div>
+              <div>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="title" value="" [(ngModel)]="title" name="title">
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="example-full-width">
+                  <textarea matInput placeholder="body" [(ngModel)]="body" name="body"></textarea>
+              </mat-form-field>
+            </div>
+
+            <button mat-raised-button color="primary" type="button" (click)="addPost()">Save</button>
+            <button mat-raised-button color="" type="button"  (click)="cancelShowPost()">Cancel</button>
+            <p style="color:red">{{this.message}}</p>
+            </form>
+        
+        
+        </mat-card>
+
+
+  </div>
+  <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="5" [columnMode]="'flex'" [footerHeight]="50" [rowHeight]="'auto'"
+    [rows]="rows">
+    <ngx-datatable-column name="Id" [flexGrow]="1">
+      <ng-template ngx-datatable-cell-template let-value="value">
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="User Id" [flexGrow]="1">
+      <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+          <span *ngIf="!editing[rowIndex]">
+              {{value}}
+            </span>
+            <input class="input-style" autofocus (blur)="updateValue($event, 'userId', rowIndex)" *ngIf="editing[rowIndex]" type="text" [value]="value" />
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Title" [flexGrow]="2">
+
+      <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+        <span *ngIf="!editing[rowIndex]">
+          {{value}}
+        </span>
+        <input autofocus class="input-style" (blur)="updateValue($event, 'title', rowIndex)" *ngIf="editing[rowIndex]" type="text" [value]="value" />
+
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Body" [flexGrow]="3">
+
+
+      <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+        <span *ngIf="!editing[rowIndex]">
+              {{value}}
+            </span>
+        <div>
+          <input autofocus class="input-style" (blur)="updateValue($event, 'body', rowIndex)" *ngIf="editing[rowIndex]" type="text" [value]="value" />
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Actions" [flexGrow]="2">
+      <ng-template ngx-datatable-cell-template let-value="value" ngx-datatable-cell-template let-rowIndex="rowIndex">
+        <button mat-raised-button color="primary" *ngIf="!editing[rowIndex]" (click)="editPost(rowIndex)">Edit</button>
+        <button mat-flat-button [color]="'success'" *ngIf="editing[rowIndex]" (click)="savePost(rowIndex)">Save</button>
+        <button mat-raised-button color="accent" (click)=deletePost(rowIndex)>Delete</button>
+
+      </ng-template>
+    </ngx-datatable-column>
+
+
+  </ngx-datatable>
+</div>

@@ -1,0 +1,24 @@
+.main-div{
+   margin: 4%;
+  }
+  .add-data{
+    margin-bottom: 2%;
+    width: 40%;
+  }
+  .input-style {
+    width: 100%;
+    font-size:16px;
+    padding:10px 10px 10px 5px;
+    display:block;
+    border:none;
+    border-bottom:1px solid #757575;
+  }
+  .input-style:focus 		{ outline:none; }
+  .mat-success {
+    background-color: green;
+    color: #fff;
+}
+
+.mat-form-field{
+  width: 100%;
+}
